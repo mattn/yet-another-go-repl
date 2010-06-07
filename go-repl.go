@@ -12,6 +12,7 @@ func main() {
 	world := eval.NewWorld()
 	for {
 		line := readline.ReadLine(&prompt);
+		readline.AddHistory(*line);
 		code, err := world.Compile(*line + ";")
 		if err != nil {
 			fmt.Fprintln(os.Stderr, "go-repl: ", err.String());
