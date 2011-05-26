@@ -1,6 +1,6 @@
 include $(GOROOT)/src/Make.inc
 
-TARG = go-repl
-GOFILES= go-repl.go
+TARG = gopl
+GOFILES= gopl.go
 
 include $(GOROOT)/src/Make.cmd
