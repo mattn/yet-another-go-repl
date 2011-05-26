@@ -1,9 +1,9 @@
 package main
 
 import (
+    "bufio"
     "fmt"
     "os"
-    "github.com/kless/go-readin/readin"
     "exp/eval"
     "go/token"
 )
@@ -11,20 +11,21 @@ import (
 func main() {
     world := eval.NewWorld()
     var fset = token.NewFileSet()
+	r := bufio.NewReader(os.Stdin)
     for {
-        line, err := readin.RepeatPrompt("go> ")
-        if err != nil {
-            fmt.Fprintln(os.Stderr, "go-repl: ", err.String())
-            continue
-        }
+		print("# ")
+		line, err := r.ReadString('\n')
+		if err != nil {
+			break
+		}
         code, err := world.Compile(fset, line+";")
         if err != nil {
-            fmt.Fprintln(os.Stderr, "go-repl: ", err.String())
+            fmt.Fprintln(os.Stderr, err.String())
             continue
         }
         ret, err := code.Run()
         if err != nil {
-            fmt.Fprintln(os.Stderr, "go-repl: ", err.String())
+            fmt.Fprintln(os.Stderr, err.String())
             continue
         }
         if ret != nil {
