@@ -1,5 +1,2 @@
 # Prerequisites
 
-    git clone git://github.com/kless/go-readin.git 
-
-    cd go-readin && make install
