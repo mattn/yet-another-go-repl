@@ -1,2 +1,3 @@
 # Prerequisites
 
+	goinstall bitbucket.org/binet/go-eval/pkg/eval
