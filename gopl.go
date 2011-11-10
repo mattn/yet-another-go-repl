@@ -20,12 +20,12 @@ func main() {
 		}
 		code, err := world.Compile(fset, line+";")
 		if err != nil {
-			fmt.Fprintln(os.Stderr, err.String())
+			fmt.Fprintln(os.Stderr, err)
 			continue
 		}
 		ret, err := code.Run()
 		if err != nil {
-			fmt.Fprintln(os.Stderr, err.String())
+			fmt.Fprintln(os.Stderr, err)
 			continue
 		}
 		if ret != nil {
