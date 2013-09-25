@@ -13,23 +13,28 @@ func main() {
 	var fset = token.NewFileSet()
 	r := bufio.NewReader(os.Stdin)
 	for {
-		print("# ")
-		line, err := r.ReadString('\n')
-		if err != nil {
-			break
-		}
-		code, err := world.Compile(fset, line+";")
-		if err != nil {
-			fmt.Fprintln(os.Stderr, err)
-			continue
-		}
-		ret, err := code.Run()
-		if err != nil {
-			fmt.Fprintln(os.Stderr, err)
-			continue
-		}
-		if ret != nil {
-			println(ret.String())
-		}
+		func() {
+			defer func() {
+				recover()
+			}()
+			fmt.Print("# ")
+			line, err := r.ReadString('\n')
+			if err != nil {
+				return
+			}
+			code, err := world.Compile(fset, line + "\n")
+			if err != nil {
+				fmt.Fprintln(os.Stderr, err)
+				return
+			}
+			ret, err := code.Run()
+			if err != nil {
+				fmt.Fprintln(os.Stderr, err)
+				return
+			}
+			if ret != nil {
+				fmt.Println(ret.String())
+			}
+		}()
 	}
 }
